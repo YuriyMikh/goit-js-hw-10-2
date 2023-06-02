@@ -1,32 +1,32 @@
 import SlimSelect from 'slim-select';
-import { fetchBreeds, fetchCatByBreed } from '/src/cat-api';
 import Notiflix from 'notiflix';
+import { fetchBreeds, fetchCatByBreed } from '/src/cat-api';
 
 const breedsSelectRef = document.querySelector('#single');
-const divContainer = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
-const error = document.querySelector('.error');
+const divContainer = document.querySelector('.cat-info');
+// const error = document.querySelector('.error'); //для обработки ошибки по базовой разметке в html
 
-error.classList.add('is-hidden');
-loader.classList.add('is-hidden');
+//error.classList.add('is-hidden'); //для обработки ошибки по базовой разметке в html
+// loader.classList.remove('is-hidden');
 
 fetchBreeds()
   .then(array => {
     markupListBreeds(array);
-    // loader.classList.add('is-hidden');
   })
   .catch(data => {
+    loader.classList.add('is-hidden');
+    // error.classList.remove('is-hidden'); //для обработки ошибки по базовой разметке в html
+    Notiflix.Notify.failure(
+      'Oops! Something went wrong! Try reloading the page!'
+    );
+  })
+  .finally(() => {
     setTimeout(() => {
       loader.classList.add('is-hidden');
-      error.classList.remove('is-hidden');
+      //     error.classList.remove('is-hidden');
     }, 1000);
   });
-// .finally(() => {
-//   setTimeout(() => {
-//     loader.classList.add('is-hidden');
-//     error.classList.remove('is-hidden');
-//   }, 1000);
-// });
 
 breedsSelectRef.addEventListener('change', onBreedSelect);
 
@@ -40,7 +40,10 @@ function onBreedSelect(event) {
     })
     .catch(data => {
       loader.classList.add('is-hidden');
-      error.classList.remove('is-hidden');
+      // error.classList.remove('is-hidden'); //для обработки ошибки по базовой разметке в html
+      Notiflix.Notify.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
     })
     //Делаем так чтобы сначала всё загрузилось и только потом в finally() снимаем класс is-hidden с контейнера и лоадера
     .finally(() => {
