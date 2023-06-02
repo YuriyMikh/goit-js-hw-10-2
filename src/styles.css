@@ -1,3 +1,36 @@
+.span-breed {
+  font-weight: 900;
+}
+
+.loader-old {
+  font-weight: 900;
+}
+
+.error {
+  font-weight: 900;
+  color: red;
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  border: 8px solid #eac3b8;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .is-hidden {
   display: none;
 }
