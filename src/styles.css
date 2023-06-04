@@ -1,14 +1,9 @@
-.span-breed {
-  font-weight: 900;
+body {
+  font-family: 'Tahoma', sans-serif;
 }
 
-.loader-old {
-  font-weight: 900;
-}
-
-.error {
-  font-weight: 900;
-  color: red;
+.container{
+  text-align: center;
 }
 
 .loader {
@@ -20,6 +15,7 @@
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+  
 }
 
 @keyframes rotation {
@@ -59,8 +55,37 @@
 @keyframes fill {
  0% {  box-shadow: 0 0 0 2px inset }
  100%{ box-shadow: 0 0 0 10px inset }
+} */
+
+.breed-select {
+  margin-bottom: 20px;
 }
-   */
+
+.cat-info {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.cat-img {
+  display: block;
+  width: 30%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.cat-name {
+  font-size: 25px;
+  margin-top: 0;
+}
+
+.cat-description {
+  font-size: 18px;
+}
+
+.cat-temperament {
+  font-weight: 600;
+}
 
 .is-hidden {
   display: none;

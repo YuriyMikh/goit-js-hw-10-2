@@ -61,9 +61,13 @@ function markupListBreeds(arrayData) {
 
 function markupCatByBreed(data) {
   divContainer.innerHTML = `
-      <img style="width: 400px" src=${data[0].url} alt="">
-      <h3>${data[0].breeds[0].name}</h3>
+    <img class="cat-img" src=${data[0].url} alt="">
+    <div class="cat-description">
+      <h3 class="cat-name">${data[0].breeds[0].name}</h3>
       <p>${data[0].breeds[0].description}</p>
-      <p><span class="span-breed">Temperament: </span>${data[0].breeds[0].temperament}</p>
-   `;
+      <p>
+        <span class="cat-temperament">Temperament: </span>${data[0].breeds[0].temperament}
+      </p>
+    </div>
+      `;
 }
