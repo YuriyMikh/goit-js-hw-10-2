@@ -2,7 +2,12 @@ body {
   font-family: 'Tahoma', sans-serif;
 }
 
-.container{
+.container-global {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.container-loader {
   text-align: center;
 }
 
@@ -15,7 +20,6 @@ body {
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  
 }
 
 @keyframes rotation {
@@ -59,6 +63,7 @@ body {
 
 .breed-select {
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .cat-info {
@@ -74,13 +79,13 @@ body {
   border-radius: 5px;
 }
 
+.cat-description {
+  font-size: 18px;
+}
+
 .cat-name {
   font-size: 25px;
   margin-top: 0;
-}
-
-.cat-description {
-  font-size: 18px;
 }
 
 .cat-temperament {
