@@ -5,27 +5,26 @@ import { fetchBreeds, fetchCatByBreed } from '/src/cat-api';
 const breedsSelectRef = document.querySelector('#single');
 const loader = document.querySelector('.loader');
 const divContainer = document.querySelector('.cat-info');
-// const error = document.querySelector('.error'); //для обработки ошибки по базовой разметке в html
-
-//error.classList.add('is-hidden'); //для обработки ошибки по базовой разметке в html
-// loader.classList.remove('is-hidden');
 
 fetchBreeds()
   .then(array => {
-    markupListBreeds(array);
+    loader.classList.remove('is-hidden'); //сначала показываем лоадер
+    breedsSelectRef.classList.add('is-hidden'); //пока грузится контент скрываем тэг select с результатами
+    markupListBreeds(array); //отрисовываем разметку
   })
   .catch(data => {
-    loader.classList.add('is-hidden');
-    // error.classList.remove('is-hidden'); //для обработки ошибки по базовой разметке в html
+    breedsSelectRef.classList.add('is-hidden');
     Notiflix.Notify.failure(
       'Oops! Something went wrong! Try reloading the page!'
     );
   })
+  //Делаем через finally() для того, чтобы сначала всё загрузилось и только потом именно в finally() делаем лоадер невидимым, а контейнер для отрисовки разметки видимым
   .finally(() => {
+    //делаем через setTimeout, чтобы лоадер покрутился пол секунды и только потом отобразился select со списком пород. Чисто для визуального восприятия
     setTimeout(() => {
       loader.classList.add('is-hidden');
-      //     error.classList.remove('is-hidden');
-    }, 1000);
+      breedsSelectRef.classList.remove('is-hidden');
+    }, 500);
   });
 
 breedsSelectRef.addEventListener('change', onBreedSelect);
@@ -40,14 +39,12 @@ function onBreedSelect(event) {
     })
     .catch(data => {
       loader.classList.add('is-hidden');
-      // error.classList.remove('is-hidden'); //для обработки ошибки по базовой разметке в html
       Notiflix.Notify.failure(
         'Oops! Something went wrong! Try reloading the page!'
       );
     })
-    //Делаем так чтобы сначала всё загрузилось и только потом в finally() снимаем класс is-hidden с контейнера и лоадера
+    //Логика работы через finally() описана выше в вызове метода fetchBreeds()
     .finally(() => {
-      //делаем через setTimeout, чтобы лоадер покрутился пол секунды. Чисто для визуального восприятия
       setTimeout(() => {
         loader.classList.add('is-hidden');
         divContainer.classList.remove('is-hidden');
@@ -64,7 +61,7 @@ function markupListBreeds(arrayData) {
 
 function markupCatByBreed(data) {
   divContainer.innerHTML = `
-      <img style="height: 100px; width: 100px;" src=${data[0].url} alt="">
+      <img style="width: 400px" src=${data[0].url} alt="">
       <h3>${data[0].breeds[0].name}</h3>
       <p>${data[0].breeds[0].description}</p>
       <p><span class="span-breed">Temperament: </span>${data[0].breeds[0].temperament}</p>
